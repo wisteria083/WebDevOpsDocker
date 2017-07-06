@@ -32,15 +32,17 @@ RUN yum -y install \
 # ========================
 # SSH
 # ========================
-RUN yum -y install openssh-server openssh-clients
+RUN yum -y install \
+ openssh-server \
+ openssh-clients
 
 RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' \
  && /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N '' \
  && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
- && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
+ && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
  && sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
-cEXPOSE 22
+EXPOSE 22
 
 # ========================
 # Apache
@@ -68,14 +70,32 @@ EXPOSE 3306
 # ========================
 # PHP7.0
 # ========================
-RUN yum install -y php70 php70-mbstring
+RUN yum install -y php70 \
+ php70-common \
+ php70-devel \
+ php70-imap \
+ php70-mbstring \
+ php70-mcrypt \
+ php70-mysqlnd \
+ php70-pdo \
+ php70-xml
+ 
+RUN echo -e '[PHP]' | tee -a /etc/php.ini \
+ && echo -e 'short_open_tag = On' | tee -a /etc/php.ini \
+ && echo -e '[mbstring]' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.language = Japanese' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.internal_encoding = UTF-8' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.http_input = UTF-8' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.http_output = pass' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.encoding_translation = Off' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.detect_order = auto' | tee -a /etc/php.ini \
+ && echo -e 'mbstring.substitute_character = nones' | tee -a /etc/php.ini
 
 # ========================
-# nvm & node,cloud9,apex
+# nvm & node
 # ========================
 ENV NODE_VERSION 4.3.0
 ENV NVM_DIR /usr/local/nvm
-ENV C9_DIR /usr/local/c9sdk
 
 RUN mkdir $NVM_DIR
 RUN mkdir $C9_DIR
@@ -92,7 +112,10 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 EXPOSE 8080
 
-# install cloud9
+# ========================
+# cloud9
+# ========================
+ENV C9_DIR /usr/local/c9sdk
 RUN yum install -y which git gcc gcc-c++ openssl-devel readline-devel glibc-static
 RUN python -V
 
@@ -108,10 +131,10 @@ RUN npm install forever -g
 # make workspace cloud9
 RUN mkdir -p /var/www/html/c9/workspaces/
 
-# install apex
+# ========================
+# apex
+# ========================
 RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
-
-
 
 # ========================
 # bashrc
@@ -121,6 +144,9 @@ RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_
 # ========================
 # /etc/rc.local
 # ========================
+# ここに自動起動したいコマンドを記載
+# tail -f /dev/nullで永久に実行する
+
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
 RUN echo -e 'node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password' | tee -a /etc/script.sh
@@ -128,7 +154,6 @@ RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
 RUN chmod 777 /etc/script.sh
 ENTRYPOINT ["/etc/script.sh"]
-
 
 # ========================
 # message
@@ -138,5 +163,3 @@ RUN echo "ssh password is $sshPassword"
 RUN echo "ic9 user is $c9User"
 
 RUN echo "c9 password is $c9Password"
-
-RUN echo "forever start $C9_DIR/server.js -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password"
