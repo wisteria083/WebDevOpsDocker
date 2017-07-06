@@ -8,32 +8,70 @@ ARG c9User="c9user"
 ARG c9Password="c9Password"
 
 # ========================
-# ssh
-# ========================
-RUN yum update -y
-RUN yum install -y sudo
-RUN yum install -y passwd
-RUN yum install -y openssh-server
-RUN yum install -y openssh-clients
-
-RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N ''
-RUN /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N ''
-RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
-RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
-
-RUN echo 'root:$sshPassword' |chpasswd
-RUN sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
-
-EXPOSE 22
-
-# ========================
 # packages
 # ========================
 RUN yum -y clean all && yum -y update
-RUN yum -y install gcc gcc-c++ make wget unzip git lm_sensors rpm-build yum-cron nfs-utils nfs-utils-lib nfs-common nap git glibc-static
+RUN yum -y install \
+ sudo \
+ passwd \
+ gcc \
+ gcc-c++ \
+ make \
+ wget \
+ unzip \
+ git \
+ lm_sensors \
+ rpm-build \
+ yum-cron \
+ nfs-utils \
+ nfs-utils-lib \
+ nfs-common \
+ nap \
+ glibc-static
 
 # ========================
-# nvm & node , cloud9 , apex
+# SSH
+# ========================
+RUN yum -y install openssh-server openssh-clients
+
+RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' \
+ && /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N '' \
+ && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
+ && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
+ && sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
+
+cEXPOSE 22
+
+# ========================
+# Apache
+# ========================
+# install apache2.4
+RUN yum install -y httpd
+
+# add conf files
+ADD httpd/*.conf  /etc/httpd/conf.d/
+
+# change httpd.conf
+RUN echo -e '<Directory "/var/www/html”>' | tee -a /etc/httpd/conf/httpd.conf \
+ && echo -e 'AllowOverride All' | tee -a /etc/httpd/conf/httpd.conf \
+ && echo -e '</Directory>' | tee -a /etc/httpd/conf/httpd.conf
+
+EXPOSE 80
+
+# ========================
+# MySQL5.6
+# ========================
+RUN yum install -y mysql56 mysql56-server
+
+EXPOSE 3306
+
+# ========================
+# PHP7.0
+# ========================
+RUN yum install -y php70 php70-mbstring
+
+# ========================
+# nvm & node,cloud9,apex
 # ========================
 ENV NODE_VERSION 4.3.0
 ENV NVM_DIR /usr/local/nvm
@@ -73,24 +111,7 @@ RUN mkdir -p /var/www/html/c9/workspaces/
 # install apex
 RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 
-# ========================
-# install LAMP
-# ========================
 
-# install apache2.4
-RUN yum install -y httpd
-RUN git clone https://github.com/wisteria083/apache24-config.git /etc/httpd/conf.d/apache24-config \
- && echo -e 'Include conf.d/apache24-config/*.conf' | tee -a /etc/httpd/conf/httpd.conf \
- && echo -e '<Directory "/var/www/html”>' | tee -a /etc/httpd/conf/httpd.conf \
- && echo -e 'AllowOverride All' | tee -a /etc/httpd/conf/httpd.conf \
- && echo -e '</Directory>' | tee -a /etc/httpd/conf/httpd.conf
-
-EXPOSE 80
-
-# install mysql5.6
-RUN yum install -y mysql56 mysql56-server
-
-EXPOSE 3306
 
 # ========================
 # bashrc
