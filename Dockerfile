@@ -51,11 +51,23 @@ RUN yum -y install java-1.8.0-openjdk-devel tomcat8
 RUN java -version
 
 # ========================
-# Python3.6 & pip
+# pyenv & Python3.6
 # ========================
-RUN yum -y install python34
-RUN python -V
-RUN easy_install pip
+RUN yum install -y gcc gcc-c++ make git openssl-devel bzip2-devel zlib-devel readline-devel sqlite-devel
+RUN git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+
+RUN echo -e 'export PYENV_ROOT="${HOME}/.pyenv' | tee -a ~/.bashrc \
+ && echo -e 'if [ -d "${PYENV_ROOT}" ]; then' | tee -a ~/.bashrc \
+ && echo -e 'export PATH=${PYENV_ROOT}/bin:$PATH' | tee -a ~/.bashrc \
+ && echo -e 'eval "$(pyenv init -)"' | tee -a ~/.bashrc \
+ && echo -e 'fi' | tee -a ~/.bashrc
+ 
+RUN source ~/.bashrc
+RUN pyenv install --list
+RUN install pyenv install 3.6.0
+
+RUN python --version
+RUN pip --version
 
 # ========================
 # Apache2.4
