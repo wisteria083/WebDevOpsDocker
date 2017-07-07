@@ -114,10 +114,9 @@ ENV NODE_VERSION 4.3.0
 ENV NVM_DIR /usr/local/nvm
 
 RUN mkdir $NVM_DIR
-RUN mkdir $C9_DIR
 
 # Install nvm with node and npm
-RUN cd $C9_DIR && curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
+RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
  && source $NVM_DIR/nvm.sh \
  && nvm install $NODE_VERSION \
  && nvm alias default $NODE_VERSION \
@@ -132,6 +131,9 @@ EXPOSE 8080
 # cloud9
 # ========================
 ENV C9_DIR /usr/local/c9sdk
+
+RUN mkdir $C9_DIR
+
 RUN yum install -y  \
 which \
 git \
