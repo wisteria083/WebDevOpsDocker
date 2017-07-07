@@ -60,9 +60,9 @@ RUN echo -e '<Directory "/var/www/html”>' | tee -a /etc/httpd/conf/httpd.conf 
  && echo -e '</Directory>' | tee -a /etc/httpd/conf/httpd.conf
 
 # add conf files
-RUN mkdir /etc/httpd/apache24-config/
-ADD httpd/*.conf  /etc/httpd/httpd-config/
-RUN echo -e 'Include conf.d/httpd-config/*.conf' | tee -a /etc/httpd/conf/httpd.conf \
+RUN mkdir /etc/httpd/httpd-config
+ADD httpd /etc/httpd/httpd-config/
+RUN echo -e 'Include httpd-config/*.conf' | tee -a /etc/httpd/conf/httpd.conf \
 
 EXPOSE 80
 
@@ -169,17 +169,19 @@ RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_
 # /etc/rc.local
 # ========================
 ARG c9User
+ENV c9User $c9User
+
 ARG c9Password
+ENV c9Password $c9Password
 
 # tail -f /dev/nullで永久に実行する
-
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
 
 RUN echo -e 'service sshd start' | tee -a /etc/script.sh
 RUN echo -e 'service httpd start' | tee -a /etc/script.sh
 
-RUN echo -e 'node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password' | tee -a /etc/script.sh
+RUN echo "node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/script.sh
 
 RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
