@@ -1,5 +1,9 @@
 AmazonLinux Docker image上にWeb開発環境を構築します。
 
+```
+sudo docker build https://github.com/wisteria083/WebDevOpsDocker.git --build-arg sshPassword=`openssl rand -base64 32` --build-arg c9User=`openssl rand -base64 32` --build-arg c9Password=`openssl rand -base64 32` -t="devops/aws:1.0" .
+```
+
 # SSH
 * OpenSSH
 
