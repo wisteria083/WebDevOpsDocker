@@ -74,7 +74,7 @@ RUN source ~/.bashrc \
 # ========================
 # Apache2.4
 # ========================
-RUN yum install -y httpd
+RUN yum install -y httpd24
 
 # add conf files
 ADD httpd/*.conf  /etc/httpd/conf.d/
