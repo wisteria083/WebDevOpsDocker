@@ -1,13 +1,6 @@
 FROM amazonlinux
 
 # ========================
-# args
-# ========================
-ARG sshPassword
-ARG c9User
-ARG c9Password
-
-# ========================
 # packages
 # ========================
 RUN yum -y clean all && yum -y update
@@ -28,21 +21,6 @@ RUN yum -y install \
  nfs-common \
  nap \
  glibc-static
-
-# ========================
-# SSH
-# ========================
-RUN yum -y install \
- openssh-server \
- openssh-clients
-
-RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' \
- && /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N '' \
- && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
- && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
- && sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
-
-EXPOSE 22
 
 # ========================
 # Java8
@@ -76,13 +54,15 @@ RUN source ~/.bashrc \
 # ========================
 RUN yum install -y httpd24
 
-# add conf files
-ADD httpd/*.conf  /etc/httpd/conf.d/
-
 # change httpd.conf
 RUN echo -e '<Directory "/var/www/html”>' | tee -a /etc/httpd/conf/httpd.conf \
  && echo -e 'AllowOverride All' | tee -a /etc/httpd/conf/httpd.conf \
  && echo -e '</Directory>' | tee -a /etc/httpd/conf/httpd.conf
+
+# add conf files
+RUN mkdir /etc/httpd/apache24-config/
+ADD httpd/*.conf  /etc/httpd/httpd-config/
+RUN echo -e 'Include conf.d/httpd-config/*.conf' | tee -a /etc/httpd/conf/httpd.conf \
 
 EXPOSE 80
 
@@ -111,6 +91,21 @@ RUN echo -e '[PHP]' | tee -a /etc/php.ini \
  && echo -e 'mbstring.encoding_translation = Off' | tee -a /etc/php.ini \
  && echo -e 'mbstring.detect_order = auto' | tee -a /etc/php.ini \
  && echo -e 'mbstring.substitute_character = nones' | tee -a /etc/php.ini
+
+## ========================
+## SSH
+## ========================
+#RUN yum -y install \
+# openssh-server \
+# openssh-clients
+#
+#RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' \
+# && /usr/bin/ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N '' \
+# && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
+# && sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config \
+# && sed -ri 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
+#
+#EXPOSE 22
 
 # ========================
 # nvm & node
@@ -171,7 +166,9 @@ RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_
 # ========================
 # /etc/rc.local
 # ========================
-# ここに自動起動したいコマンドを記載
+ARG c9User
+ARG c9Password
+
 # tail -f /dev/nullで永久に実行する
 
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
@@ -190,8 +187,5 @@ ENTRYPOINT ["/etc/script.sh"]
 # ========================
 # message
 # ========================
-RUN echo "ssh password is $sshPassword"
-
-RUN echo "ic9 user is $c9User"
-
-RUN echo "c9 password is $c9Password"
+RUN echo 'c9 user is $c9User'
+RUN echo 'c9 password is $c9Password'
