@@ -53,7 +53,7 @@ RUN java -version
 # ========================
 # Python3.6 & pip
 # ========================
-RUN yum -y install python36
+RUN yum -y install python34
 RUN python -V
 RUN easy_install pip
 
