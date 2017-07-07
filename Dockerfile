@@ -65,9 +65,12 @@ RUN echo 'fi' >> ~/.bashrc
 RUN source ~/.bashrc \
  && pyenv install --list \
  && pyenv install 3.6.0 \
+ && pyenv global 3.6.0 \
  && python --version \
+ && curl -O https://bootstrap.pypa.io/get-pip.py \
+ && python3 get-pip.py \
  && pip --version
-
+ 
 # ========================
 # Apache2.4
 # ========================
@@ -177,7 +180,12 @@ RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_
 
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
+
+RUN echo -e 'service sshd start' | tee -a /etc/script.sh
+RUN echo -e 'service httpd start' | tee -a /etc/script.sh
+
 RUN echo -e 'node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password' | tee -a /etc/script.sh
+
 RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
 RUN chmod 777 /etc/script.sh
