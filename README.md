@@ -1,6 +1,6 @@
 AmazonLinux Docker image上にWeb開発環境を構築します。
 
-# install docker on Amazon Linux
+# install docker
 ```
 $ sudo yum install -y docker
 $ sudo service docker start
@@ -21,6 +21,9 @@ $ sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/
 http://{userhost}:8081
 
 # 開発環境
+
+### OS
+Aamzon Linux
 
 ### Java
 * JDK1.8.0
