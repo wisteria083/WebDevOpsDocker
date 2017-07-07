@@ -17,6 +17,9 @@ $ sudo docker build --build-arg c9User=`openssl rand -base64 32` --build-arg c9P
 $ sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/bash 
 ```
 
+# access to Cloud9 IDE
+http://{userhost}:8081
+
 # 開発環境
 
 ### Java
