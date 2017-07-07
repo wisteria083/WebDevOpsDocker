@@ -1,8 +1,14 @@
 AmazonLinux Docker image上にWeb開発環境を構築します。
 
+# Build dockerfile
 ```
 $ sudo yum install -y open-ssl
 $ sudo docker build --build-arg c9User=`openssl rand -base64 32` --build-arg c9Password=`openssl rand -base64 32` -t="webdevops/aml:1.0" https://github.com/wisteria083/WebDevOpsDocker.git 
+```
+
+# Run docker
+```
+sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/bash 
 ```
 
 ## SSH
