@@ -189,5 +189,5 @@ ENTRYPOINT ["/etc/script.sh"]
 # ========================
 # message
 # ========================
-RUN echo 'c9 user is `$c9User`'
+RUN echo 'c9 user is ${c9User}'
 RUN echo 'c9 password is `$c9Password`'
