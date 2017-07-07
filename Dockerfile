@@ -45,9 +45,21 @@ RUN /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' \
 EXPOSE 22
 
 # ========================
-# Apache
+# Java8
 # ========================
-# install apache2.4
+RUN yum -y install java-1.8.0-openjdk-devel tomcat8
+RUN java -version
+
+# ========================
+# Python3.6 & pip
+# ========================
+RUN yum -y install python36
+RUN python -V
+RUN easy_install pip
+
+# ========================
+# Apache2.4
+# ========================
 RUN yum install -y httpd
 
 # add conf files
@@ -63,7 +75,9 @@ EXPOSE 80
 # ========================
 # MySQL5.6
 # ========================
-RUN yum install -y mysql56 mysql56-server
+RUN yum install -y  \
+ mysql56 \
+ mysql56-server
 
 EXPOSE 3306
 
@@ -72,11 +86,8 @@ EXPOSE 3306
 # ========================
 RUN yum install -y php70 \
  php70-common \
- php70-devel \
- php70-imap \
  php70-mbstring \
  php70-mcrypt \
- php70-mysqlnd \
  php70-pdo \
  php70-xml
  
@@ -102,10 +113,10 @@ RUN mkdir $C9_DIR
 
 # Install nvm with node and npm
 RUN cd $C9_DIR && curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
-&& source $NVM_DIR/nvm.sh \
-&& nvm install $NODE_VERSION \
-&& nvm alias default $NODE_VERSION \
-&& nvm use default
+ && source $NVM_DIR/nvm.sh \
+ && nvm install $NODE_VERSION \
+ && nvm alias default $NODE_VERSION \
+ && nvm use default
 
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
@@ -116,8 +127,14 @@ EXPOSE 8080
 # cloud9
 # ========================
 ENV C9_DIR /usr/local/c9sdk
-RUN yum install -y which git gcc gcc-c++ openssl-devel readline-devel glibc-static
-RUN python -V
+RUN yum install -y  \
+which \
+git \
+gcc \
+gcc-c++ \
+openssl-devel \
+readline-devel \
+glibc-static
 
 RUN git clone git://github.com/c9/core.git $C9_DIR
 RUN $C9_DIR/scripts/install-sdk.sh
