@@ -11,23 +11,22 @@ $ sudo docker build --build-arg c9User=`openssl rand -base64 32` --build-arg c9P
 sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/bash 
 ```
 
-## SSH
-* OpenSSH
+# Dev
 
-## LAMP
+### LAMP
 * Apache2.4.x
 * PHP7.0
 * MySQL 5.6 
 
-## Python
+### Python
 * Python 3.6.0
 * pip 9.0(or later)
 
-## NVM & Node.js
+### NVM & Node.js
 * NVM 0.33.2
 * Node.js 4.3.2(default)
 * Apex
 
-## IDE
+### IDE
 * Cloud9
 
