@@ -98,12 +98,8 @@ EXPOSE 3306
 # ========================
 # PHP7.0
 # ========================
-RUN yum install -y php70 \
- php70-common \
- php70-mbstring \
- php70-mcrypt \
- php70-pdo \
- php70-xml
+RUN yum install -y php70
+RUN yum install -y php70-mysqlnd php70-mbstring php70-mcrypt php70-pdo php70-xml php70-fpm
  
 RUN echo -e '[PHP]' | tee -a /etc/php.ini \
  && echo -e 'short_open_tag = On' | tee -a /etc/php.ini \
