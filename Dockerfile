@@ -62,12 +62,11 @@ RUN echo 'export PATH=${PYENV_ROOT}/bin:$PATH' >> ~/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 RUN echo 'fi' >> ~/.bashrc
  
-RUN source ~/.bashrc
-RUN pyenv install --list
-RUN install pyenv install 3.6.0
-
-RUN python --version
-RUN pip --version
+RUN source ~/.bashrc \
+ && pyenv install --list \
+ && install pyenv install 3.6.0 \
+ && python --version \
+ && pip --version
 
 # ========================
 # Apache2.4
