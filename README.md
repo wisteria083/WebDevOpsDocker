@@ -12,11 +12,12 @@ sudo docker build --build-arg sshPassword=`openssl rand -base64 32` --build-arg 
 * Apache2.4.x
 * PHP7.0
 * MySQL 5.6 
-* Redis 3.x
+* Python 3.6.0
+* pip 9.0(or later)
 
 # NVM & Node.js
 * NVM 0.33.2
-* Node.js
+* Node.js 4.3.2(default)
 
 # IDE
 * Cloud9
