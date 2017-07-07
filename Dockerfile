@@ -64,7 +64,7 @@ RUN echo 'fi' >> ~/.bashrc
  
 RUN source ~/.bashrc \
  && pyenv install --list \
- && install pyenv install 3.6.0 \
+ && pyenv install 3.6.0 \
  && python --version \
  && pip --version
 
