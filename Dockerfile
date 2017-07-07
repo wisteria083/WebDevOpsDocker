@@ -3,9 +3,9 @@ FROM amazonlinux
 # ========================
 # args
 # ========================
-ARG sshPassword="rootpassword"
-ARG c9User="c9user"
-ARG c9Password="c9Password"
+ARG sshPassword
+ARG c9User
+ARG c9Password
 
 # ========================
 # packages
