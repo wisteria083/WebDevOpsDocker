@@ -56,11 +56,11 @@ RUN java -version
 RUN yum install -y gcc gcc-c++ make git openssl-devel bzip2-devel zlib-devel readline-devel sqlite-devel
 RUN git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 
-RUN echo -e 'export PYENV_ROOT="${HOME}/.pyenv' | tee -a ~/.bashrc \
- && echo -e 'if [ -d "${PYENV_ROOT}" ]; then' | tee -a ~/.bashrc \
- && echo -e 'export PATH=${PYENV_ROOT}/bin:$PATH' | tee -a ~/.bashrc \
- && echo -e 'eval "$(pyenv init -)"' | tee -a ~/.bashrc \
- && echo -e 'fi' | tee -a ~/.bashrc
+RUN echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> ~/.bashrc
+RUN echo 'if [ -d "${PYENV_ROOT}" ]; then' >> ~/.bashrc
+RUN echo 'export PATH=${PYENV_ROOT}/bin:$PATH' >> ~/.bashrc
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+RUN echo 'fi' >> ~/.bashrc
  
 RUN source ~/.bashrc
 RUN pyenv install --list
