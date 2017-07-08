@@ -19,7 +19,7 @@ $ sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/
 # open Cloud9 IDE
 http://{yourhost}:8081/ide.html
 
-# middlewares
+# installs
 
 ### OS
 Aamzon Linux
