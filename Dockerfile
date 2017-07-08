@@ -92,6 +92,13 @@ RUN echo -e '[PHP]' | tee -a /etc/php.ini \
  && echo -e 'mbstring.detect_order = auto' | tee -a /etc/php.ini \
  && echo -e 'mbstring.substitute_character = nones' | tee -a /etc/php.ini
 
+RUN php -v
+
+# install composer
+RUN php -r "readfile('https://getcomposer.org/installer');" | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN composer
+
 ## ========================
 ## SSH
 ## ========================
