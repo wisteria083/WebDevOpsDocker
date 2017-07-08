@@ -40,6 +40,9 @@ Aamzon Linux
 ### Apache
 * Apache2.4.x
 
+### nginx(amazon linux default repository)
+* nginx
+
 ### PHP
 * PHP7.0
 * composer
