@@ -67,11 +67,19 @@ RUN echo -e 'Include httpd-config/*.conf' | tee -a /etc/httpd/conf/httpd.conf \
 EXPOSE 80
 
 # ========================
-# MySQL5.6
+# nginx
 # ========================
-RUN yum install -y  \
- mysql56 \
- mysql56-server
+RUN yum install nginx
+
+# ========================
+# MySQL5.7(5.7.6 or later)
+# ========================
+RUN yum -y install http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+RUN yum -y install mysql-community-server
+RUN mysql --version
+
+ADD mysqld/my.cnf /tmp/my.cnf
+RUN cat /tmp/my.cnf >> /etc/my.cnf
 
 EXPOSE 3306
 
