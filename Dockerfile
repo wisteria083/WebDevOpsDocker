@@ -168,6 +168,11 @@ RUN mkdir -p /var/www/html/c9/workspaces/
 RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 
 # ========================
+# phpMyAdmin
+# ========================
+RUN cd /var/www/html/c9/workspaces && git clone https://github.com/phpmyadmin/phpmyadmin.git
+
+# ========================
 # bashrc
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
