@@ -53,6 +53,7 @@ Aamzon Linux
 ### NVM & Node.js
 * NVM 0.33.2
 * Node.js 4.3.2(default)
+* bower
 * Apex
 
 ### IDE
