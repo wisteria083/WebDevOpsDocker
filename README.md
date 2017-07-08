@@ -22,7 +22,16 @@ $ sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/
 http://{yourhost}:8081/ide.html
 
 ### phpMyAdmin
-http://{yourhost}/phpmyadmin
+http://{yourhost}/phpMyAdmin
+
+### html5-site-template
+http://{yourhost}/example/html5-site-template
+
+### FuelPHP
+http://{yourhost}/example/fuelphp
+
+### WordPress
+http://{yourhost}/example/wordpress
 
 # installs
 
