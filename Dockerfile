@@ -183,6 +183,22 @@ RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 RUN cd /var/www/html/c9/workspaces && git clone https://github.com/phpmyadmin/phpmyadmin.git
 
 # ========================
+# frameworks
+# ========================
+
+# html5
+RUN mkdir -p /var/www/html/c9/workspaces/example/html5-site-template
+RUN git clone https://github.com/dcneiner/html5-site-template.git /var/www/html/c9/workspaces/example/html5-site-template
+
+# FuelPHP
+RUN mkdir -p /var/www/html/c9/workspaces/example/fuelphp
+RUN git clone https://github.com/fuel/fuel.git /var/www/html/c9/workspaces/example/fuelphp
+
+# WordPress
+RUN mkdir -p /var/www/html/c9/workspaces/example/wordpress
+RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/example/wordpress
+
+# ========================
 # bashrc
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
