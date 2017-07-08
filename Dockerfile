@@ -134,7 +134,7 @@ RUN mkdir $NVM_DIR
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
  && source $NVM_DIR/nvm.sh \
  && nvm install $NODE_VERSION \
- && nvm alias default $NODE_VERSION
+ && nvm alias default $NODE_VERSION \
  && nvm use default \
  && npm install bower -g \
  && bower -v
