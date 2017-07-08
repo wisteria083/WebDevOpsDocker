@@ -79,15 +79,5 @@ git clone https://github.com/fuel/fuel.git /var/www/html/c9/workspaces/exsample/
 git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/exsample/wordpress
 ```
 
-#### express
-```
-cd /var/www/html/c9/workspaces/exsample/express
-npm install express --save
-npm install express
-```
-
-
-
-
 
 
