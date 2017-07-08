@@ -69,7 +69,7 @@ EXPOSE 80
 # ========================
 # nginx
 # ========================
-RUN yum install nginx
+RUN yum install -y nginx
 
 # ========================
 # MySQL5.7(5.7.6 or later)
