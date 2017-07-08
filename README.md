@@ -16,8 +16,13 @@ $ sudo docker build --build-arg c9User=`cat /dev/urandom | base64 | fold -w 16 |
 $ sudo docker run -it -p 80:80 -p 8080:8080 -p 8081:8081 webdevops/aml:1.0 /bin/bash 
 ```
 
-# open Cloud9 IDE
+# open your DevOps
+
+### Cloud9 IDE
 http://{yourhost}:8081/ide.html
+
+### phpMyAdmin
+http://{yourhost}/phpmyadmin
 
 # installs
 
@@ -37,6 +42,7 @@ Aamzon Linux
 
 ### PHP
 * PHP7.0
+* composer
 
 ### MySQL
 * MySQL 5.6 
@@ -47,5 +53,13 @@ Aamzon Linux
 * Apex
 
 ### IDE
-* Cloud9
+* Cloud9(from git)
+
+### Utils
+* phpMyAdmin(from git)
+
+
+
+
+
 
