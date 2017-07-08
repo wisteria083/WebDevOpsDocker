@@ -232,3 +232,4 @@ ENTRYPOINT ["/etc/script.sh"]
 # ========================
 RUN echo "c9 user is $c9User" 
 RUN echo "c9 password is $c9Password" 
+RUN echo "mysqld password is `cat /var/log/mysqld.log | grep 'temporary password'`" 
