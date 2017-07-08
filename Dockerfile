@@ -180,7 +180,7 @@ RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 # ========================
 # phpMyAdmin
 # ========================
-RUN cd /var/www/html/c9/workspaces && git clone https://github.com/phpmyadmin/phpmyadmin.git
+RUN git clone https://github.com/phpmyadmin/phpmyadmin.git /var/www/html/c9/workspaces
 
 # ========================
 # frameworks
