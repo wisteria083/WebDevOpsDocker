@@ -45,7 +45,7 @@ Aamzon Linux
 * composer
 
 ### MySQL
-* MySQL 5.6 
+* MySQL 5.7(5.7.6 or later)
 
 ### NVM & Node.js
 * NVM 0.33.2
