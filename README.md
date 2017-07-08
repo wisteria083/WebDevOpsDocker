@@ -68,17 +68,17 @@ Aamzon Linux
 ### frameworks
 * html5-site-template(https://github.com/dcneiner/html5-site-template.git)
 ```
-/var/www/html/c9/workspaces/exsample/html5-site-template
+/var/www/html/c9/workspaces/example/html5-site-template
 ```
 
 * FuelPHP(https://github.com/fuel/fuel.git)
 ```
-/var/www/html/c9/workspaces/exsample/fuelphp
+/var/www/html/c9/workspaces/example/fuelphp
 ```
 
 * WordPress(https://github.com/WordPress/WordPress.git)
 ```
-/var/www/html/c9/workspaces/exsample/wordpress
+/var/www/html/c9/workspaces/example/wordpress
 ```
 
 
