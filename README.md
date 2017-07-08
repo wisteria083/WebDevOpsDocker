@@ -62,6 +62,30 @@ Aamzon Linux
 ### Utils
 * phpMyAdmin(from git)
 
+### frameworks
+
+#### html5-site-template
+```
+git clone https://github.com/dcneiner/html5-site-template.git  /var/www/html/c9/workspaces/exsample/html5-site-template
+```
+
+#### FuelPHP
+```
+git clone https://github.com/fuel/fuel.git /var/www/html/c9/workspaces/exsample/fuelphp
+```
+
+#### WordPress
+```
+git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/exsample/wordpress
+```
+
+#### express
+```
+cd /var/www/html/c9/workspaces/exsample/express
+npm install express --save
+npm install express
+```
+
 
 
 
