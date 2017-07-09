@@ -121,6 +121,7 @@ RUN cat /tmp/my.cnf >> /etc/my.cnf
 
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
 RUN service mysqld start
+# RUN service mysqld stop
 
 RUN cat /var/log/mysqld.log | grep 'temporary password'
 
@@ -223,11 +224,15 @@ RUN curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 # ========================
 # phpMyAdmin
 # ========================
-RUN mkdir -p /var/www/html/c9/workspaces/phpMyAdmin
-RUN git clone https://github.com/phpmyadmin/phpmyadmin.git /var/www/html/c9/workspaces/phpMyAdmin
+RUN mkdir -p /var/www/html/c9/workspaces
+RUN cd /var/www/html/c9/workspaces \
+ && wget https://github.com/phpmyadmin/phpmyadmin/archive/master.zip \
+ && unzip master.zip \
+ && mv phpmyadmin-master phpMyAdmin \
+ && rm -f master.zip
 
 # ========================
-# frameworks
+# examples
 # ========================
 
 # html5
@@ -252,20 +257,15 @@ RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_
 # /etc/rc.local
 # ========================
 ARG c9User
-ENV c9User $c9User
-
 ARG c9Password
-ENV c9Password $c9Password
 
 # tail -f /dev/nullで永久に実行する
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
-
-RUN echo -e 'service sshd start' | tee -a /etc/script.sh
+# RUN echo -e 'service sshd start' | tee -a /etc/script.sh
 RUN echo -e 'service httpd start' | tee -a /etc/script.sh
-
+RUN echo -e 'service mysqld start' | tee -a /etc/script.sh
 RUN echo "node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/script.sh
-
 RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
 RUN chmod 777 /etc/script.sh
