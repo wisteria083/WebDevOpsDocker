@@ -11,6 +11,21 @@ $ sudo service docker start
 $ sudo docker build --build-arg c9User=`cat /dev/urandom | base64 | fold -w 16 | head -n 1` --build-arg c9Password=`cat /dev/urandom | base64 | fold -w 16 | head -n 1` -t="webdevops/aml:1.0" https://github.com/wisteria083/WebDevOpsDocker.git 
 ```
 
+copy Cloud9 IDE user and password
+
+in docker build terminal
+```
+c9 user is {user}
+c9 password is {user}
+```
+
+copy mysqld rootpassword
+
+in docker build terminal
+```
+
+```
+
 # docker run
 ```
 $ sudo docker run -itd -p 80:80 -p 8080:8080 -p 8081:8081 --name="webdevops" webdevops/aml:1.0 /bin/bash
@@ -56,12 +71,21 @@ http://{yourhost}/example/wordpress
 
 # installs
 
-### OS
-Aamzon Linux
+### use image
+FROM amazonlinux
 
 ### Java
 * JDK1.8.0
 * tomcat 8
+
+### .Net
+* dotnet
+
+### Ruby (rbenv)
+* rbenv
+* ruby-build
+* Ruby 2.4.0
+* Rails 4.2.4 or later
 
 ### Python
 * Python 3.6.0
@@ -78,7 +102,7 @@ Aamzon Linux
 * composer
 
 ### MySQL
-* MySQL 5.7(5.7.6 or later)
+* MySQL 5.7.6 or later
 
 ### NVM & Node.js
 * NVM 0.33.2
