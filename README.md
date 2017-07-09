@@ -107,17 +107,14 @@ FROM amazonlinux
 ### NVM & Node.js
 * NVM 0.33.2
 * Node.js 4.3.2(default)
-* bower
-* Apex
 
 ### IDE
-* Cloud9(from git)
+* Cloud9
 
 ### Utils
-* phpMyAdmin(from git)
-```
-/var/www/html/c9/workspaces/phpmyadmin
-```
+* phpMyAdmin
+* bower
+* Apex
 
 ### frameworks
 * html5-site-template(https://github.com/dcneiner/html5-site-template.git)
