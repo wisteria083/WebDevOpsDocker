@@ -29,7 +29,50 @@ RUN yum -y install java-1.8.0-openjdk-devel tomcat8
 RUN java -version
 
 # ========================
-# pyenv & Python3.6
+# .NET Core SDK 
+# http://qiita.com/creativewebjp/items/be182b394f5c56c24485
+# ========================
+RUN yum install -y libunwind libicu
+RUN curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=809131
+RUN mkdir -p /opt/dotnet && tar zxf dotnet.tar.gz -C /opt/dotnet
+RUN ln -s /opt/dotnet/dotnet /usr/local/bin
+RUN dotnet --info
+
+# ========================
+# ruby & rails (rbenv)
+# ========================
+
+# rbenv
+RUN yum -y install gcc-c++ glibc-headers openssl-devel readline libyaml-devel readline-devel zlib zlib-devel libffi-devel libxml2 libxslt libxml2-devel libxslt-devel sqlite-devel
+RUN git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
+
+RUN cp -p /etc/profile /etc/profile.ORG
+RUN echo 'export RBENV_ROOT="/usr/local/rbenv"' | tee -a /etc/profile
+RUN echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' | tee -a /etc/profile
+RUN echo 'eval "$(rbenv init -)"' | tee -a /etc/profile
+
+RUN rbenv -v
+
+# ruby-build
+RUN git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
+
+# ruby
+RUN rbenv install -l | grep 2.4.0
+RUN rbenv install 2.4.0
+RUN rbenv rehash
+RUN rbenv global 2.4.0
+RUN ruby -v 
+
+# rails
+RUN gem update --system
+RUN gem install nokogiri -- --use-system-libraries
+RUN gem install --no-ri --no-rdoc rails
+RUN gem install bundler
+RUN rbenv rehash
+RUN rails -v
+
+# ========================
+# pyenv & Python3.6 & pip
 # ========================
 RUN yum install -y gcc gcc-c++ make git openssl-devel bzip2-devel zlib-devel readline-devel sqlite-devel
 RUN git clone https://github.com/yyuu/pyenv.git ~/.pyenv
@@ -80,6 +123,12 @@ RUN mysql --version
 
 ADD mysqld/my.cnf /tmp/my.cnf
 RUN cat /tmp/my.cnf >> /etc/my.cnf
+
+RUN echo "NETWORKING=yes" >/etc/sysconfig/network
+RUN service mysqld start
+RUN service mysqld stop
+
+RUN cat /var/log/mysqld.log | grep 'temporary password'
 
 EXPOSE 3306
 
@@ -194,6 +243,7 @@ RUN git clone https://github.com/dcneiner/html5-site-template.git /var/www/html/
 # FuelPHP
 RUN mkdir -p /var/www/html/c9/workspaces/example/fuelphp
 RUN git clone https://github.com/fuel/fuel.git /var/www/html/c9/workspaces/example/fuelphp
+RUN cd /var/www/html/c9/workspaces/example/fuelphp && composer install
 
 # WordPress
 RUN mkdir -p /var/www/html/c9/workspaces/example/wordpress
@@ -228,8 +278,9 @@ RUN chmod 777 /etc/script.sh
 ENTRYPOINT ["/etc/script.sh"]
 
 # ========================
-# message
+# passwords
 # ========================
-RUN echo "c9 user is $c9User" 
-RUN echo "c9 password is $c9Password" 
-RUN echo "mysqld password is `cat /var/log/mysqld.log | grep 'temporary password'`" 
+RUN echo "c9 user is $c9User" >> ~/passwords
+RUN echo "c9 password is $c9Password" >> ~/passwords
+RUN echo "mysqld password is `cat /var/log/mysqld.log | grep 'temporary password'`"  >> ~/passwords
+RUN cat ~/passwords
