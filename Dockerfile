@@ -274,8 +274,13 @@ ENTRYPOINT ["/etc/script.sh"]
 # ========================
 # passwords
 # ========================
+RUN echo "# ==============================================" >> ~/passwords
+RUN echo "# successful WebDevOps docker build" >> ~/passwords
+RUN echo "# authentication information is as follows" >> ~/passwords
+RUN echo "# delete ./passwords file after attaching to this docker" >> ~/passwords
+RUN echo "# ==============================================" >> ~/passwords
 RUN echo "c9 user is $c9User" >> ~/passwords
 RUN echo "c9 password is $c9Password" >> ~/passwords
 RUN echo "mysqld password is `cat /var/log/mysqld.log | grep -Eo 'temporary password.+localhost:\s+(.+)' | cut -d: -f2`" >> ~/passwords
 
-ONBUILD RUN cat ~/passwords
+RUN cat ~/passwords
