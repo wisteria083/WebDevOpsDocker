@@ -50,26 +50,21 @@ RUN cp -p /etc/profile /etc/profile.ORG
 RUN echo 'export RBENV_ROOT="/usr/local/rbenv"' | tee -a /etc/profile
 RUN echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' | tee -a /etc/profile
 RUN echo 'eval "$(rbenv init -)"' | tee -a /etc/profile
+
 RUN source /etc/profile \
- && rbenv -v
-
-# ruby-build
-RUN git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
-
-# ruby
-RUN rbenv install -l | grep 2.4.0
-RUN rbenv install 2.4.0
-RUN rbenv rehash
-RUN rbenv global 2.4.0
-RUN ruby -v 
-
-# rails
-RUN gem update --system
-RUN gem install nokogiri -- --use-system-libraries
-RUN gem install --no-ri --no-rdoc rails
-RUN gem install bundler
-RUN rbenv rehash
-RUN rails -v
+ && rbenv -v \
+ && git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build \
+ && rbenv install -l | grep 2.4.0 \
+ && rbenv install 2.4.0 \
+ && rbenv rehash \
+ && rbenv global 2.4.0 \
+ && ruby -v \
+ && gem update --system \
+ && gem install nokogiri -- --use-system-libraries \
+ && gem install --no-ri --no-rdoc rails \
+ && gem install bundler \
+ && rbenv rehash \
+ && rails -v
 
 # ========================
 # pyenv & Python3.6 & pip
