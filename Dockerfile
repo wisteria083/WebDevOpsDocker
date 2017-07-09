@@ -282,7 +282,7 @@ RUN echo "# ==============================================" >> ~/passwords
 RUN echo "" >> ~/passwords
 RUN echo "c9 user is '$c9User'" >> ~/passwords
 RUN echo "c9 password is '$c9Password'" >> ~/passwords
-RUN echo "mysqld password is '`cat /var/log/mysqld.log | grep -Eo 'temporary password.+localhost:.*([^ ]+)' | cut -d: -f2`'" >> ~/passwords
+RUN echo "mysqld password is '`cat /var/log/mysqld.log | grep -Eo 'temporary password.+localhost:(.+)' | cut -d: -f2 | tr -d ' '`'" >> ~/passwords
 RUN echo "" >> ~/passwords
 
 RUN cat ~/passwords
