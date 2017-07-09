@@ -13,27 +13,27 @@ $ sudo docker build --build-arg c9User=`cat /dev/urandom | base64 | fold -w 16 |
 
 # docker run
 ```
-$ sudo docker run -itd -p 80:80 -p 8080:8080 -p 8081:8081 --name="webdevops" webdevops/aml:1.0 /bin/bash 
+$ sudo docker run -itd -p 80:80 -p 8080:8080 -p 8081:8081 --name="webdevops" webdevops/aml:1.0 /bin/bash
 ```
 
-if any dockers
+if more dockers
 ```
-$ sudo docker run -itd -p 81:80 -p 8180:8080 -p 8181:8081 --name="webdevops001" webdevops/aml:1.0 /bin/bash 
-$ sudo docker run -itd -p 82:80 -p 8280:8080 -p 8281:8081 --name="webdevops002" webdevops/aml:1.0 /bin/bash 
-$ sudo docker run -itd -p 83:80 -p 8380:8080 -p 8381:8081 --name="webdevops003" webdevops/aml:1.0 /bin/bash 
+$ sudo docker run -itd -p 81:80 -p 8180:8080 -p 8181:8081 --name="webdevops_001" webdevops/aml:1.0 /bin/bash 
+$ sudo docker run -itd -p 82:80 -p 8280:8080 -p 8281:8081 --name="webdevops_002" webdevops/aml:1.0 /bin/bash 
+$ sudo docker run -itd -p 83:80 -p 8380:8080 -p 8381:8081 --name="webdevops_003" webdevops/aml:1.0 /bin/bash 
 ...
 ```
 
 # docker commit
 ```
-$ sudo docker commit webdevops webdevops:latest
+$ sudo docker commit webdevops webdevops/aml:1.0_`date '+%Y%m%d%H%M%S'`
 ```
 
-if any dockers
+if more dockers
 ```
-$ sudo docker commit webdevops001 webdevops001:latest
-$ sudo docker commit webdevops002 webdevops002:latest
-$ sudo docker commit webdevops003 webdevops003:latest
+$ sudo docker commit webdevops_001 webdevops/aml:1.0_001_`date '+%Y%m%d%H%M%S'`
+$ sudo docker commit webdevops_002 webdevops/aml:1.0_002_`date '+%Y%m%d%H%M%S'`
+$ sudo docker commit webdevops_003 webdevops/aml:1.0_003_`date '+%Y%m%d%H%M%S'`
 ...
 ```
 
