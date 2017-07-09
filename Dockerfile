@@ -50,7 +50,7 @@ RUN cp -p /etc/profile /etc/profile.ORG
 RUN echo 'export RBENV_ROOT="/usr/local/rbenv"' | tee -a /etc/profile
 RUN echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' | tee -a /etc/profile
 RUN echo 'eval "$(rbenv init -)"' | tee -a /etc/profile
-
+RUN source /etc/profile
 RUN rbenv -v
 
 # ruby-build
