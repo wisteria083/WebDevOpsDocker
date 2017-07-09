@@ -78,7 +78,7 @@ FROM amazonlinux
 * JDK1.8.0
 * tomcat 8
 
-### .Net
+### .Net Core
 * dotnet
 
 ### Ruby (rbenv)
