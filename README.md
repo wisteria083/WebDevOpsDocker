@@ -43,9 +43,11 @@ $ sudo docker commit webdevops_003 webdevops/aml:1.0_003_`date '+%Y%m%d%H%M%S'`
 http://{yourhost}:8081/ide.html
 
 if more dockers
-*http://{yourhost}:8181/ide.html
-*http://{yourhost}:8281/ide.html
-*http://{yourhost}:8381/ide.html
+```
+http://{yourhost}:8181/ide.html
+http://{yourhost}:8281/ide.html
+http://{yourhost}:8381/ide.html
+```
 
 ### phpMyAdmin
 http://{yourhost}/phpMyAdmin
