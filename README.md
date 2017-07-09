@@ -2,7 +2,7 @@ AmazonLinux Docker image上にWeb開発環境を構築します。
 
 # install docker
 ```
-$ sudo yum install -y docker
+$ sudo yum install -y git docker
 $ sudo service docker start
 ```
 
