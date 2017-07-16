@@ -6,6 +6,7 @@ FROM amazonlinux
 RUN yum -y clean all && yum -y update
 RUN yum -y install \
  sudo \
+ aws-cli \
  passwd \
  gcc \
  gcc-c++ \
@@ -19,7 +20,7 @@ RUN yum -y install \
  nfs-utils \
  nfs-utils-lib \
  nfs-common \
- nap \
+ nap \ 
  glibc-static
 
 # ========================
