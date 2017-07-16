@@ -72,13 +72,13 @@ RUN source /etc/profile \
 RUN yum install -y gcc gcc-c++ make git openssl-devel bzip2-devel zlib-devel readline-devel sqlite-devel
 RUN git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 
-RUN echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> ~/.bashrc
-RUN echo 'if [ -d "${PYENV_ROOT}" ]; then' >> ~/.bashrc
-RUN echo 'export PATH=${PYENV_ROOT}/bin:$PATH' >> ~/.bashrc
-RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-RUN echo 'fi' >> ~/.bashrc
+RUN echo 'export PYENV_ROOT="${HOME}/.pyenv"' | tee -a /etc/profile
+RUN echo 'if [ -d "${PYENV_ROOT}" ]; then' | tee -a /etc/profile
+RUN echo 'export PATH=${PYENV_ROOT}/bin:$PATH' | tee -a /etc/profile
+RUN echo 'eval "$(pyenv init -)"' | tee -a /etc/profile
+RUN echo 'fi' | tee -a /etc/profile
  
-RUN source ~/.bashrc \
+RUN source /etc/profile \
  && pyenv install --list \
  && pyenv install 3.6.0 \
  && pyenv global 3.6.0 \
@@ -261,6 +261,8 @@ ARG c9Password
 
 # tail -f /dev/nullで永久に実行する
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
+RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
+
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
 # RUN echo -e 'service sshd start' | tee -a /etc/script.sh
 RUN echo -e 'service httpd start' | tee -a /etc/script.sh
