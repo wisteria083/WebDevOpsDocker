@@ -210,9 +210,6 @@ RUN cd $C9_DIR && npm install
 
 EXPOSE 8081
 
-# node forever
-RUN npm install forever -g
-
 # make workspace cloud9
 RUN mkdir -p /var/www/html/c9/workspaces/
 
@@ -261,8 +258,6 @@ ARG c9Password
 
 # tail -f /dev/nullで永久に実行する
 RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
-RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
-
 RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
 # RUN echo -e 'service sshd start' | tee -a /etc/script.sh
 RUN echo -e 'service httpd start' | tee -a /etc/script.sh
