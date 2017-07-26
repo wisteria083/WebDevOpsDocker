@@ -1,5 +1,7 @@
 FROM amazonlinux
 
+# test message
+
 # ========================
 # packages
 # ========================
