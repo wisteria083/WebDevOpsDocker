@@ -98,7 +98,7 @@ FROM amazonlinux
 
 ### NVM & Node.js
 * NVM 0.33.2
-* Node.js 6.9.4(default)
+* Node.js 6.9.3(default)
 
 ### IDE
 * Cloud9
