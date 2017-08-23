@@ -172,7 +172,7 @@ RUN composer
 # ========================
 # nvm & node
 # ========================
-ENV NODE_VERSION 4.3.0
+ENV NODE_VERSION 6.9.3
 ENV NVM_DIR /usr/local/nvm
 
 RUN mkdir $NVM_DIR
@@ -252,6 +252,7 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 # bashrc
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
+RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
 
 # ========================
 # /etc/rc.local
