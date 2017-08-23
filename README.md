@@ -128,3 +128,19 @@ FROM amazonlinux
 ```
 /var/www/html/c9/workspaces/example/ruby_on_rails_blog
 ```
+
+* aws-serverless-express(https://github.com/awslabs/aws-serverless-express.git)
+```
+/var/www/html/c9/workspaces/example/aws-serverless-express/example
+```
+
+if you run on local
+```
+node /var/www/html/c9/workspaces/example/aws-serverless-express/example/app.local.js
+```
+
+AWS set up
+```
+npm run config --account-id <aws account id> --bucket-name <s3 packet name> --function-name <function name> --region <region>
+npm run setup
+```
