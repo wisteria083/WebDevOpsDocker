@@ -124,5 +124,7 @@ FROM amazonlinux
 /var/www/html/c9/workspaces/example/wordpress
 ```
 
-
-
+* Ruby on Rails Blog(rails new blog -m)
+```
+/var/www/html/c9/workspaces/example/ruby_on_rails_blog
+```
