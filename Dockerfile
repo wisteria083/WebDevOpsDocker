@@ -22,6 +22,8 @@ RUN yum -y install \
  nfs-utils \
  nfs-utils-lib \
  nfs-common \
+ libmysqlclient-dev \ 
+ mysql-devel \ 
  nap \ 
  glibc-static
 
@@ -249,8 +251,8 @@ RUN mkdir -p /var/www/html/c9/workspaces/example/wordpress
 RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/example/wordpress
 
 # Ruby on Rails Blog
-#RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails_blog
-#RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails_blog && rails new blog -m http://example.com/template.rb
+RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails_blog
+RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails_blog && rails new blog -m http://example.com/template.rb -d mysql
 
 # aws-serverless-express
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
