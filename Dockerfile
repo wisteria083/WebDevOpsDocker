@@ -69,10 +69,7 @@ RUN source /etc/profile \
  && gem install --no-ri --no-rdoc rails \
  && gem install bundler \
  && rbenv rehash \
- && rails -v \
- && mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails_blog \
- && cd /var/www/html/c9/workspaces/example/ruby_on_rails_blog \
- && rails new blog -m http://example.com/template.rb -d mysql
+ && rails -v
 
 # ========================
 # pyenv & Python3.6 & pip
@@ -258,6 +255,11 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 # aws-serverless-express
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
 
+# aws-serverless-express
+RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails \
+RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails \
+RUN rails new exsample -d mysql
+ 
 # ========================
 # bashrc
 # ========================
