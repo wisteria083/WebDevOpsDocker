@@ -117,9 +117,8 @@ RUN yum install -y nginx
 # ========================
 # MySQL5.7(5.7.6 or later)
 # ========================
-RUN yum -y install http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+RUN wget http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
 RUN yum localinstall --nogpgcheck mysql57-community-release-el6-7.noarch.rpm
-RUN yum -y install mysql-community-server
 RUN mysql --version
 
 ADD mysqld/my.cnf /tmp/my.cnf
