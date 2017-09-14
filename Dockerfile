@@ -251,8 +251,8 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
 
 # aws-serverless-express
-RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails \
-RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails \
+RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails
+RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails
 RUN rails new exsample -d mysql
  
 # ========================
