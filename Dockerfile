@@ -120,15 +120,16 @@ RUN yum install -y nginx
 # ========================
 # MySQL5.7(5.7.6 or later)
 # ========================
-RUN yum -y install --nogpgcheck http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-RUN yum -y install mysql-community-server
+#RUN yum -y install --nogpgcheck http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+#RUN yum -y install mysql-community-server
+RUN yum -y install mysql-config-5.5.57-1.18.amzn1.x86_64
 RUN mysql --version
 
 ADD mysqld/my.cnf /tmp/my.cnf
 RUN cat /tmp/my.cnf >> /etc/my.cnf
-
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
-#RUN service mysqld start
+
+RUN service mysqld start
 #RUN service mysqld stop
 
 EXPOSE 3306
