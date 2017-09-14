@@ -128,10 +128,9 @@ ADD mysqld/my.cnf /tmp/my.cnf
 RUN cat /tmp/my.cnf >> /etc/my.cnf
 
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
-RUN service mysqld start
+#RUN service mysqld start
 # RUN service mysqld stop
-
-RUN cat /var/log/mysqld.log | grep 'temporary password'
+#RUN cat /var/log/mysqld.log | grep 'temporary password'
 
 EXPOSE 3306
 
