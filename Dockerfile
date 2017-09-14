@@ -117,20 +117,15 @@ RUN yum install -y nginx
 # ========================
 # MySQL5.7(5.7.6 or later)
 # ========================
-#UN wget http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-#RUN yum localinstall -y --nogpgcheck mysql57-community-release-el6-7.noarch.rpm
-#RUN yum install -y mysql-community-server
 RUN yum -y install --nogpgcheck http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-#RUN yum -y install mysql-community-server
 RUN mysql --version
 
 ADD mysqld/my.cnf /tmp/my.cnf
 RUN cat /tmp/my.cnf >> /etc/my.cnf
 
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
-RUN service mysql start
-# RUN service mysqld stop
-#RUN cat /var/log/mysqld.log | grep 'temporary password'
+#RUN service mysqld start
+#RUN service mysqld stop
 
 EXPOSE 3306
 
