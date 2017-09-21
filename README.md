@@ -13,15 +13,7 @@ $ sudo docker build --build-arg c9User=`cat /dev/urandom | base64 | fold -w 16 |
 
 # docker run
 ```
-$ sudo docker run -itd -p 80:80 -p 8080:8080 -p 8081:8081 --name="webdevops" webdevops/aml:1.0 /bin/bash
-```
-
-if more dockers
-```
-$ sudo docker run -itd -p 81:80 -p 8180:8080 -p 8181:8081 --name="webdevops_001" webdevops/aml:1.0 /bin/bash 
-$ sudo docker run -itd -p 82:80 -p 8280:8080 -p 8281:8081 --name="webdevops_002" webdevops/aml:1.0 /bin/bash 
-$ sudo docker run -itd -p 83:80 -p 8380:8080 -p 8381:8081 --name="webdevops_003" webdevops/aml:1.0 /bin/bash 
-...
+$ sudo docker run -itd -p 80:80 -p 81:81 -p 3000:3000 -p 8080:8080 -p 8081:8081  --name="webdevops" webdevops/aml:1.0 /bin/bash
 ```
 
 # docker commit
@@ -29,37 +21,22 @@ $ sudo docker run -itd -p 83:80 -p 8380:8080 -p 8381:8081 --name="webdevops_003"
 $ sudo docker commit webdevops webdevops/aml:1.0_`date '+%Y%m%d%H%M%S'`
 ```
 
-if more dockers
-```
-$ sudo docker commit webdevops_001 webdevops/aml:1.0_001_`date '+%Y%m%d%H%M%S'`
-$ sudo docker commit webdevops_002 webdevops/aml:1.0_002_`date '+%Y%m%d%H%M%S'`
-$ sudo docker commit webdevops_003 webdevops/aml:1.0_003_`date '+%Y%m%d%H%M%S'`
-...
-```
-
 # open your DevOps
 
 ### Cloud9 IDE
 http://{yourhost}:8081/ide.html
 
-if more dockers
-```
-http://{yourhost}:8181/ide.html
-http://{yourhost}:8281/ide.html
-http://{yourhost}:8381/ide.html
-```
-
 ### phpMyAdmin
-http://{yourhost}/phpMyAdmin
+http://{yourhost}/c9/workspaces/phpMyAdmin
 
 ### html5-site-template
-http://{yourhost}/example/html5-site-template
+http://{yourhost}/c9/workspaces/example/html5-site-template
 
 ### FuelPHP
-http://{yourhost}/example/fuelphp
+http://{yourhost}/c9/workspaces/example/fuelphp
 
 ### WordPress
-http://{yourhost}/example/wordpress
+http://{yourhost}/c9/workspaces/example/wordpress
 
 # installs
 
@@ -139,7 +116,7 @@ if you run on local
 node /var/www/html/c9/workspaces/example/aws-serverless-express/example/app.local.js
 ```
 
-AWS set up
+/aws-serverless-express set up
 ```
 npm run config --account-id <aws account id> --bucket-name <s3 packet name> --function-name <function name> --region <region>
 npm run setup
