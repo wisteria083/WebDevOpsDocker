@@ -257,14 +257,14 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
  
 # ========================
-# bashrc
+# ~/.bash_profile
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
 RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
 RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
 
 # ========================
-# start-stop-daemon
+# /etc/rc.local 
 # ========================
 ARG c9User
 ARG c9Password
