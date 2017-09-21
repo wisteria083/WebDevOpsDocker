@@ -1,5 +1,23 @@
 AmazonLinux Docker image上にWeb開発環境を構築します。
 
+# Warning!!
+
+EC2 instance microで実行する場合はswapが無い場合が多いので事前に作っておいた方が吉
+
+```
+$ sudo su -
+$ uname -a
+$ dd if=/dev/zero of=/swapfile1 bs=1M count=512
+$ ll /swapfile1
+$ chmod 600 /swapfile1
+$ mkswap /swapfile1
+$ swapon -s
+$ swapon /swapfile1
+$ swapon -s
+$ free
+$ grep Swap /proc/meminfo
+```
+ 
 # install docker
 ```
 $ sudo yum install -y git docker
