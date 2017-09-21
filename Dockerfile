@@ -121,8 +121,8 @@ RUN yum install -y nginx
 # MySQL5.7(5.7.6 or later)
 # ========================
 #RUN yum -y install --nogpgcheck http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-#RUN yum -y install mysql-community-server
-RUN yum -y install mysql-config-5.5.57-1.18.amzn1.x86_64
+RUN yum -y install mysql
+RUN yum -y install mysql-server
 RUN mysql --version
 
 ADD mysqld/my.cnf /tmp/my.cnf
@@ -188,6 +188,7 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | b
  && nvm alias default $NODE_VERSION \
  && nvm use default \
  && npm install bower -g \
+ && npm install forever -g \
  && bower -v
  
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
@@ -256,33 +257,25 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
 
 # aws-serverless-express
-#RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails
-#RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails
-#RUN rails new exsample -d mysql
+RUN mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails
+RUN cd /var/www/html/c9/workspaces/example/ruby_on_rails && rails new exsample -d mysql
  
 # ========================
 # bashrc
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
 RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
+RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
 
 # ========================
-# /etc/rc.local
+# start-stop-daemon
 # ========================
 ARG c9User
 ARG c9Password
 
-# tail -f /dev/nullで永久に実行する
-RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
-RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
-# RUN echo -e 'service sshd start' | tee -a /etc/script.sh
-RUN echo -e 'service httpd start' | tee -a /etc/script.sh
-RUN echo -e 'service mysqld start' | tee -a /etc/script.sh
-RUN echo "node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/script.sh
-RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
-
-RUN chmod 777 /etc/script.sh
-ENTRYPOINT ["/etc/script.sh"]
+RUN echo -e 'service httpd start' | tee -a /etc/rc.local 
+RUN echo -e 'service mysqld start' | tee -a /etc/rc.local 
+RUN echo -e "forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/rc.local 
 
 # ========================
 # passwords
