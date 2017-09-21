@@ -128,8 +128,6 @@ RUN cat /tmp/my.cnf >> /etc/my.cnf
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
 
 RUN service mysqld start
-RUN service mysqld stop
-RUN service mysqld start
 
 EXPOSE 3306
 
