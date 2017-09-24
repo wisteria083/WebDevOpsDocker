@@ -139,3 +139,11 @@ node /var/www/html/c9/workspaces/example/aws-serverless-express/example/app.loca
 npm run config --account-id <aws account id> --bucket-name <s3 packet name> --function-name <function name> --region <region>
 npm run setup
 ```
+
+MySQL change default root password 
+```
+$ mysql -u root -p
+Enter password {Dockerfile return MySQL password}
+
+# SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass');
+```
