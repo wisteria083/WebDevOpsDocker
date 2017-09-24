@@ -257,8 +257,8 @@ RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awsla
 # ~/.bash_profile
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
-RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
-RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
+# RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
+# RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
 
 # ========================
 # /etc/rc.local 
@@ -266,9 +266,11 @@ RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
 ARG c9User
 ARG c9Password
 
-RUN echo -e 'service httpd start' | tee -a /etc/rc.local 
-RUN echo -e 'service mysqld start' | tee -a /etc/rc.local 
-RUN echo -e "forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/rc.local 
+# RUN echo -e 'service httpd start' | tee -a /etc/rc.local 
+# RUN echo -e 'service mysqld start' | tee -a /etc/rc.local 
+# RUN echo -e "forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/rc.local 
+
+CMD service httpd start && service mysqld start && forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password
 
 # ========================
 # passwords
