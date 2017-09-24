@@ -254,23 +254,28 @@ RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/worksp
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
  
 # ========================
-# ~/.bash_profile
+# bashrc
 # ========================
 RUN echo -e 'export PS1="[\[\e[1;34m\]\u\[\e[00m\]@\h:\w]\$ "' | tee -a ~/.bash_profile
-# RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
-# RUN echo -e 'alias ll="ls -la"' | tee -a ~/.bash_profile
+RUN echo -e 'source /usr/local/nvm/nvm.sh' | tee -a ~/.bash_profile
 
 # ========================
-# /etc/rc.local 
+# /etc/rc.local
 # ========================
 ARG c9User
 ARG c9Password
 
-# RUN echo -e 'service httpd start' | tee -a /etc/rc.local 
-# RUN echo -e 'service mysqld start' | tee -a /etc/rc.local 
-# RUN echo -e "forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/rc.local 
+# tail -f /dev/nullで永久に実行する
+RUN echo -e '#!/bin/bash' | tee -a /etc/script.sh
+RUN echo -e 'alias ll="ls -la"' | tee -a /etc/script.sh
+# RUN echo -e 'service sshd start' | tee -a /etc/script.sh
+RUN echo -e 'service httpd start' | tee -a /etc/script.sh
+RUN echo -e 'service mysqld start' | tee -a /etc/script.sh
+RUN echo "node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/script.sh
+RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
-CMD service httpd start && service mysqld start && forever $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password
+RUN chmod 777 /etc/script.sh
+ENTRYPOINT ["/etc/script.sh"]
 
 # ========================
 # passwords
