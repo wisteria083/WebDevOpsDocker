@@ -54,23 +54,23 @@ RUN echo 'export RBENV_ROOT="/usr/local/rbenv"' | tee -a /etc/profile
 RUN echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' | tee -a /etc/profile
 RUN echo 'eval "$(rbenv init -)"' | tee -a /etc/profile
 
-RUN source /etc/profile \
- && rbenv -v \
- && git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build \
- && rbenv install -l | grep 2.4.0 \
- && rbenv install 2.4.0 \
- && rbenv rehash \
- && rbenv global 2.4.0 \
- && ruby -v \
- && gem update --system \
- && gem install nokogiri -- --use-system-libraries \
- && gem install --no-ri --no-rdoc rails \
- && gem install bundler \
- && rbenv rehash \
- && rails -v \
- && mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails \
- && cd /var/www/html/c9/workspaces/example/ruby_on_rails \
- && rails new exsample -d mysql
+# RUN source /etc/profile \
+#  && rbenv -v \
+#  && git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build \
+#  && rbenv install -l | grep 2.4.0 \
+#  && rbenv install 2.4.0 \
+#  && rbenv rehash \
+#  && rbenv global 2.4.0 \
+#  && ruby -v \
+#  && gem update --system \
+#  && gem install nokogiri -- --use-system-libraries \
+#  && gem install --no-ri --no-rdoc rails \
+#  && gem install bundler \
+#  && rbenv rehash \
+#  && rails -v \
+#  && mkdir -p /var/www/html/c9/workspaces/example/ruby_on_rails \
+#  && cd /var/www/html/c9/workspaces/example/ruby_on_rails \
+#  && rails new exsample -d mysql
 
 # ========================
 # pyenv & Python3.6 & pip
