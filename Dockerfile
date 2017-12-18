@@ -274,8 +274,8 @@ RUN echo -e 'service mysqld start' | tee -a /etc/script.sh
 RUN echo "node $C9_DIR/server.js -l 0.0.0.0 -w /var/www/html/c9/workspaces/ -p 8081 -a $c9User:$c9Password" | tee -a /etc/script.sh
 RUN echo -e 'tail -f /dev/null' | tee -a /etc/script.sh
 
-RUN chmod 777 /etc/script.sh
-ENTRYPOINT ["/etc/script.sh"]
+#RUN chmod 777 /etc/script.sh
+#ENTRYPOINT ["/etc/script.sh"]
 
 # ========================
 # passwords
