@@ -28,18 +28,18 @@ RUN yum -y install \
 # ========================
 # Java8
 # ========================
-RUN yum -y install java-1.8.0-openjdk-devel tomcat8
-RUN java -version
+#RUN yum -y install java-1.8.0-openjdk-devel tomcat8
+#RUN java -version
 
 # ========================
 # .NET Core SDK 
 # http://qiita.com/creativewebjp/items/be182b394f5c56c24485
 # ========================
-RUN yum install -y libunwind libicu
-RUN curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=809131
-RUN mkdir -p /opt/dotnet && tar zxf dotnet.tar.gz -C /opt/dotnet
-RUN ln -s /opt/dotnet/dotnet /usr/local/bin
-RUN dotnet --info
+#RUN yum install -y libunwind libicu
+#RUN curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=809131
+#RUN mkdir -p /opt/dotnet && tar zxf dotnet.tar.gz -C /opt/dotnet
+#RUN ln -s /opt/dotnet/dotnet /usr/local/bin
+#RUN dotnet --info
 
 # ========================
 # ruby & rails (rbenv)
@@ -86,8 +86,8 @@ RUN echo 'fi' | tee -a /etc/profile
  
 RUN source /etc/profile \
  && pyenv install --list \
- && pyenv install 3.6.0 \
- && pyenv global 3.6.0 \
+ && pyenv install 2.7.10 \
+ && pyenv global 2.7.10 \
  && python --version \
  && curl -O https://bootstrap.pypa.io/get-pip.py \
  && python3 get-pip.py \
@@ -173,7 +173,7 @@ RUN composer
 # ========================
 # nvm & node
 # ========================
-ENV NODE_VERSION 6.9.3
+ENV NODE_VERSION 8.1.0
 ENV NVM_DIR /usr/local/nvm
 
 RUN mkdir $NVM_DIR
@@ -246,9 +246,9 @@ RUN mkdir -p /var/www/html/c9/workspaces/example/fuelphp
 RUN git clone https://github.com/fuel/fuel.git /var/www/html/c9/workspaces/example/fuelphp
 RUN cd /var/www/html/c9/workspaces/example/fuelphp && composer install
 
-# WordPress
-RUN mkdir -p /var/www/html/c9/workspaces/example/wordpress
-RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/example/wordpress
+## WordPress
+#RUN mkdir -p /var/www/html/c9/workspaces/example/wordpress
+#RUN git clone https://github.com/WordPress/WordPress.git /var/www/html/c9/workspaces/example/wordpress
 
 # aws-serverless-express
 RUN cd /var/www/html/c9/workspaces/example && git clone https://github.com/awslabs/aws-serverless-express.git
