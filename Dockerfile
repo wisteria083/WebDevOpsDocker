@@ -212,7 +212,7 @@ glibc-static
 RUN git clone git://github.com/c9/core.git $C9_DIR
 RUN $C9_DIR/scripts/install-sdk.sh
 RUN cd $C9_DIR && npm install
-
+RUN cd $C9_DIR && git reset --hard
 EXPOSE 8081
 
 # make workspace cloud9
