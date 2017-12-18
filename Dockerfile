@@ -88,10 +88,10 @@ RUN source /etc/profile \
  && pyenv install --list \
  && pyenv install 2.7.10 \
  && pyenv global 2.7.10 \
- && python --version \
- && curl -O https://bootstrap.pypa.io/get-pip.py \
- && python3 get-pip.py \
- && pip --version
+ && python --version
+# && curl -O https://bootstrap.pypa.io/get-pip.py \
+# && python3 get-pip.py \
+# && pip --version
  
 # ========================
 # Apache2.4
